@@ -111,6 +111,7 @@ fun MainContent(moveList:List<String> = listOf(
 }
 
 @Composable
+@Preview
 fun MovieRow(movie:String="sanskar",onItemClick:(String)->Unit={})
 //onItemClick is of type string and it returns nothing , if we give = {} then
 //we are saying at default we are not passing any thing
