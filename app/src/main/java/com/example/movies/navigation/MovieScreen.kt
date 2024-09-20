@@ -9,7 +9,7 @@ enum class MovieScreen {
     DetailsScreen;
     companion object{
         fun fromRoute(route:String?):MovieScreen
-        = when(route?.substringBefore("/")){
+                = when(route?.substringBefore("/")){
             HomeScreen.name-> HomeScreen
             DetailsScreen.name->DetailsScreen
             null->HomeScreen //if it's null let's just go back to home screen

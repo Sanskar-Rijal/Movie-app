@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.movies.navigation.MovieNavigation
 import com.example.movies.ui.theme.MoviesTheme
 import org.intellij.lang.annotations.PrintFormat
 
@@ -45,9 +46,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-          myapp {
-              MainContent()
-          }
+            myapp {
+                MovieNavigation()
+            }
         }
     }
 }
@@ -57,58 +58,20 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     myapp {
-        MainContent()
+        MovieNavigation()
     }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun myapp( content: @Composable ()-> Unit) {
     MoviesTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(title =
-                { Text(text = "hello") }
-                , colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.primary
-                , titleContentColor = Color.White)
-                    )
-            }
-        ) {innerpadding->
-            Column(modifier = Modifier.padding((innerpadding))) {
-                content()
-            }
 
-        }
+        content()
     }
 }
 
 
-@Composable
-fun MainContent(moveList:List<String> = listOf(
-    "3 Idiots",
-    "Chhichhore",
-    "Stree",
-    "Dhamaal",
-    "Spiderman Noway home",
-    "Munna Bhai M.B.B.S",
-    "Ghajini",
-    "PK",
-    "Hera Pheri",
-    "Drishyam",
-    "Avatar"
-))
-{
-    Column( modifier = Modifier.padding(12.dp)) {
-    //creating a recycler view
-    LazyColumn{
-        items(items =  moveList)
-        {
-            MovieRow(it){movie->
-                Log.d("TAG", "MainContent: $movie")
-            }
-        }
-    }
-    }
-}
+
 
 @Composable
 @Preview
@@ -121,11 +84,11 @@ fun MovieRow(movie:String="sanskar",onItemClick:(String)->Unit={})
         .padding(4.dp)
         .height(130.dp)
         .clickable {
-                   onItemClick(movie)
+            onItemClick(movie)
         }
         , elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
         ,shape = RoundedCornerShape(corner = CornerSize(15.dp)
-            )
+        )
     ) {
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start) {
@@ -137,7 +100,7 @@ fun MovieRow(movie:String="sanskar",onItemClick:(String)->Unit={})
             ) {
                 Icon(imageVector = Icons.Default.AccountBox,
                     contentDescription ="Image",
-                    )
+                )
             }
             Text(text = movie)
         }
