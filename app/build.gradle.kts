@@ -69,4 +69,6 @@ dependencies {
     //adding navigation dependencies just go to google and type
     //jetpack compose navigation you will get the dependency
     implementation("androidx.navigation:navigation-compose:2.8.1")
+    //dependencies for coil i.e fetching images from the internet
+    implementation("io.coil-kt:coil-compose:2.7.0")
 }
