@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -80,38 +81,45 @@ fun DetailsScreen(navController: NavController,
             .fillMaxHeight()
             .padding(innerpadding)
         ) {
-            Column(
+            LazyColumn (
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top) {
-                MovieRow(movie=moviethatmatchid.first())
+                items(items = moviethatmatchid) {final->
+                    MovieRow(movie = final)
 
-                //making a scrollable row , for vertical scrollable we use lazycolumn, for horizontal we use lazy row
-                Spacer(modifier = Modifier.height(8.dp))
-                Divider(thickness = 1.dp, color = Color.LightGray)
+                    //making a scrollable row , for vertical scrollable we use lazycolumn, for horizontal we use lazy row
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Divider(thickness = 1.dp, color = Color.LightGray)
 
-                Text(text = "MOVIE IMAGES"
-                , style = MaterialTheme.typography.titleMedium
-                , fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "MOVIE IMAGES",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
 
-                LazyRow {
-                    items(moviethatmatchid.first().images){image->
-                        Card(modifier= Modifier
-                            .padding(12.dp)
-                            .size(height = 240.dp, width = 300.dp),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)){
-                            //Image(painter = rememberImagePainter(data = image), contentDescription = "images")
+                    LazyRow {
+                        items(moviethatmatchid.first().images) { image ->
+                            Card(
+                                modifier = Modifier
+                                    .padding(12.dp)
+                                    .size(height = 240.dp, width = 300.dp),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
+                            ) {
+                                //Image(painter = rememberImagePainter(data = image), contentDescription = "images")
 //                            AsyncImage(model = image,
 //                                placeholder = painterResource(R.drawable.dummy),
 //                                contentDescription = "images")
-                            SubcomposeAsyncImage(model = image,
-                                contentScale = ContentScale.FillBounds,
-                            contentDescription = "images"){
-                                val state =painter.state
-                                if(state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error){
-                                    CircularProgressIndicator()
-                                }
-                                else{
-                                    SubcomposeAsyncImageContent()
+                                SubcomposeAsyncImage(
+                                    model = image,
+                                    contentScale = ContentScale.FillBounds,
+                                    contentDescription = "images"
+                                ) {
+                                    val state = painter.state
+                                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                                        CircularProgressIndicator()
+                                    } else {
+                                        SubcomposeAsyncImageContent()
+                                    }
                                 }
                             }
                         }
