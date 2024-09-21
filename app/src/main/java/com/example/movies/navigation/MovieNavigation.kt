@@ -29,7 +29,8 @@ fun MovieNavigation(){
         composable(MovieScreen.DetailsScreen.name+"/{movie}"
         , arguments = listOf(navArgument(name = "movie"){type= NavType.StringType})){
             BackStackEntry-> //variable that contains information that we want
-            DetailsScreen(navController,BackStackEntry.arguments?.getString("movie"))
+            DetailsScreen(navController
+                ,BackStackEntry.arguments?.getString("movie"))
         }
     }
 }

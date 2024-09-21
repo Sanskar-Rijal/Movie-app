@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -34,16 +35,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.movies.R
 import com.example.movies.model.Movie
 import com.example.movies.model.getmovies
@@ -84,7 +88,11 @@ fun MovieRow(movie: Movie= getmovies()[0], onItemClick:(String)->Unit={})
 //                    contentDescription ="Image",
 //                )
                 AsyncImage(
-                    model = movie.images[0],
+                    //model = movie.images[0],
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(movie.images[0])
+                        .crossfade(true)
+                        .build(),
                     placeholder = painterResource(R.drawable.dummy),
                     contentDescription = "image for movie",
                     contentScale = ContentScale.Crop,
@@ -92,15 +100,20 @@ fun MovieRow(movie: Movie= getmovies()[0], onItemClick:(String)->Unit={})
 
                     )
             }
-            Column(modifier = Modifier.padding(4.dp)) {
+            Column(modifier = Modifier.padding(3.dp)) {
                 Text(
                     text = movie.title,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.displaySmall,
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Director: ${movie.title}", style = MaterialTheme.typography.bodyMedium
+                    text = "Director: ${movie.Director}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold
                 )
-                Text(text = "Released: ${movie.year}")
+                Text(text = "Released: ${movie.year}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold)
 
                 AnimatedVisibility(visible = expand.value) {
 
@@ -114,20 +127,38 @@ fun MovieRow(movie: Movie= getmovies()[0], onItemClick:(String)->Unit={})
                              **/
                             withStyle(
                                 style = SpanStyle(
-                                    Color.DarkGray,
+                                    //Color.DarkGray,
                                     fontSize = 13.sp
                                 )
                             ) {
-                                append("plot ")
+                                append("Description: ")
                             }
                             withStyle(
                                 style = SpanStyle(
-                                    Color.DarkGray,
+                                   // Color.DarkGray,
                                     fontSize = 13.sp,
-                                    fontWeight = FontWeight.Bold)){
+                                    fontWeight = FontWeight.Light)){
                                 append(movie.plot)
                             }
-                        })
+                        }, modifier = Modifier.padding(6.dp))
+                        Divider(thickness = 1.dp, color = Color.White
+                        , modifier = Modifier.padding(4.dp))
+
+
+                        Column(modifier = Modifier.padding(3.dp)) {
+                            Text(
+                                text = "Director: ${movie.Director}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Text(
+                                text = "Actors: ${movie.actor}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Text(
+                                text = "Rating: ${movie.rating}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                     }
                 }
                     Icon(imageVector = if (expand.value) Icons.Filled.KeyboardArrowUp
