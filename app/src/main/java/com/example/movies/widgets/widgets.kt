@@ -95,7 +95,7 @@ fun MovieRow(movie: Movie= getmovies()[0], onItemClick:(String)->Unit={})
                         .build(),
                     placeholder = painterResource(R.drawable.dummy),
                     contentDescription = "image for movie",
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.FillBounds,
                     modifier = Modifier.clip(CircleShape),
 
                     )
