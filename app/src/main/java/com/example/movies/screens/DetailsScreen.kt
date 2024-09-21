@@ -37,7 +37,7 @@ fun DetailsScreen(navController: NavController,
     Scaffold(topBar = {
         TopAppBar(title ={
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                Text(text = "MOVIE")
+                Text(text = "Details")
             } }
             , colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary
                 , titleContentColor = Color.White), navigationIcon ={

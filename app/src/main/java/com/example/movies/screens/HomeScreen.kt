@@ -19,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movies.MovieRow
+import com.example.movies.model.Movie
+import com.example.movies.model.getmovies
 import com.example.movies.navigation.MovieScreen
+import com.example.movies.widgets.MovieRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,19 +47,7 @@ fun HomeScreen(navController: NavController){
 
 @Composable
 fun MainContent(navcontroller:NavController
-                ,moveList:List<String> = listOf(
-        "3 Idiots",
-        "Chhichhore",
-        "Stree",
-        "Dhamaal",
-        "Spiderman Noway home",
-        "Munna Bhai M.B.B.S",
-        "Ghajini",
-        "PK",
-        "Hera Pheri",
-        "Drishyam",
-        "Avatar"
-    ))
+                ,moveList:List<Movie> = getmovies() )
 {
     Column( modifier = Modifier.padding(12.dp)) {
         //creating a recycler view
