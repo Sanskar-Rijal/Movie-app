@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -64,10 +65,10 @@ fun DetailsScreen(navController: NavController,
                 Text(text = "Details")
             } }
             , colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary
-                , titleContentColor = Color.White), navigationIcon ={
+                , titleContentColor = Color.White),navigationIcon ={
                     Row(modifier = Modifier.padding(10.dp),
                         horizontalArrangement =Arrangement.Start) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "arrow to go back"
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "arrow to go back"
                             //adding modifer to make it clickable
                             , modifier = Modifier.clickable {
                                 navController.popBackStack()
